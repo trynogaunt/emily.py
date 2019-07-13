@@ -40,6 +40,19 @@ def setup_channels(ctx, cursor, database):
     cursor.executemany(reqChannel, val_channel)
     database.commit()
 
+def setup_role(ctx, cursor, database):
+    identif = ctx.guild.id
+    guild_roles = ctx.guild.roles
+    reqRole = "INSERT INTO roles(RoleName, RoleServer) VALUES(%s, %s)"
+    val_role = []
+
+    for role in guild_roles:
+        role_name = role.name
+        sql_tuple = (role_name, identif)
+        val_role.append(sql_tuple)
+    cursor.executemany(reqRole, val_role)
+    database.commit() 
+
 def setup_server(ctx, password):
     identif = ctx.guild.id
     name = ctx.guild.name
@@ -57,7 +70,10 @@ def setup_server(ctx, password):
     
     setup_channels(ctx, data_cursor, database)
     print ("Enregistrement des channels....")
-    time.sleep(10)
+    time.sleep(5)
+    setup_role(ctx, data_cursor, database)
+    print ("Enregistrement des rôles....")
+    time.sleep(5)
     data_cursor.close()
 
     print ("Serveur enregistré")
