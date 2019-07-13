@@ -1,10 +1,6 @@
 import discord
-import asyncio
-import time
 import asyncpg
-from discord.ext import tasks, commands
-import functions.database as d
-import random
+from discord.ext import commands
 import functions.load_config as c
 
 client = commands.Bot(command_prefix = c.prefix)

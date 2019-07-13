@@ -36,8 +36,18 @@ class Tools(commands.Cog, name="test"):
         await ctx.message.channel.send(embed = ping_embed)
 
     @commands.command(name = "clear", description = "Permet supprimer des messages", type = "administration", visibilty = True)
+    @commands.has_permissions(manage_messages = True)
     async def clear(self, ctx, amount=5):
         await ctx.channel.purge(limit=amount)
 
+    @commands.command()
+    @commands.has_permissions(administrator = True)
+    async def test(self, ctx):
+        member = ctx.guild.get_member(300260756862271488)
+        for role in member.roles:
+            if role.name == "@everyone":
+                pass
+            else:
+                print(f"{role.name} est admin ? {role.permissions}")
 def setup(client):
     client.add_cog(Tools(client))

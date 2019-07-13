@@ -13,7 +13,7 @@ class Configuration(commands.Cog, name="Configuration"):
         await ctx.channel.purge(limit= 1)
         await ctx.message.channel.send("La configuration du serveur a bien était enregistrée")
 
-    @commands.command(name = "deleteserver", description = "Suprimme la sauvegarde du serveur", visibilty = True)
+    @commands.command(name = "deleteserver", description = "Supprime la sauvegarde du serveur", visibilty = True)
     async def deleteserver(self, ctx, password):
         deleting = d.delete_server(ctx, password)
         if deleting == False:
