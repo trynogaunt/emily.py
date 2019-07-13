@@ -8,8 +8,9 @@ import random
 import functions.load_config as c
 
 client = commands.Bot(command_prefix = c.prefix)
-extensions = ['commands.configuration_servers', 'commands.tools']
+client.remove_command('help')
 
+extensions = ['commands.configuration_servers', 'commands.tools']
 if __name__ == "__main__":
     for extension in extensions:
         try:
