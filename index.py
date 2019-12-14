@@ -1,12 +1,12 @@
 import discord
-import asyncpg
 from discord.ext import commands
 import functions.load_config as c
 
-client = commands.Bot(command_prefix = c.prefix)
-client.remove_command('help')
+bot = c.BotConfig()
+client = commands.Bot(command_prefix= bot.prefix)
 
-extensions = ['commands.configuration_servers', 'commands.tools']
+client.remove_command("help") #retire la commande help
+extensions = ['commands.tools'] #listes des extensions à charger
 if __name__ == "__main__":
     for extension in extensions:
         try:
@@ -28,4 +28,4 @@ async def on_member_join(member):
 async def on_member_remove(member):
     print(f'{member} à quitté le serveur')
 
-client.run(c.bot_token)
+client.run(bot.bot_token())

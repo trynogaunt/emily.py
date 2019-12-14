@@ -1,1 +1,7 @@
 config.json
+.vscode
+
+functions/__pycache__/database.cpython-37.pyc
+functions/__pycache__/load_config.cpython-37.pyc
+commands/__pycache__/configuration_servers.cpython-37.pyc
+commands/__pycache__/tools.cpython-37.pyc
