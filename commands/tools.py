@@ -25,6 +25,7 @@ class Tools(commands.Cog, name="tools"):
              
         help_embed.add_field(name = "Mon support:", value = "https://discord.gg/abdd2sk", inline = False)
         await ctx.channel.purge(limit= 1)
+        await ctx.message.channel.send(embed= help_embed)
 
     @commands.command(name= "ping", description = "Plus c'est haut plus t'es retardé", visibilty = True)
     async def ping(self, ctx):
