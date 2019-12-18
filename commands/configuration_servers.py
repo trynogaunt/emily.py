@@ -23,8 +23,12 @@ class Configuration(commands.Cog, name="Configuration"):
     
     @commands.command()
     async def save_channel(self, ctx):
-        for channel in ctx.guild.channels:
-            await ctx.message.channel.send(f"{channel.name} est un {channel.type}, placé dans {channel.category}")
-        
+        msg = await ctx.message.channel.send(f"Enregistrement: <---------->")
+        channels = ctx.guild.channels
+        for channel in channels:
+            connect.add_channels(self.bot, ctx.guild.id, channel.name, str(channel.type), str(channel.category))
+            await msg.edit(content = f"Enregistrement de {channel.name}")
+        await msg.edit(content = f"Enregistrement terminé")
+        print("terminé")    
 def setup(client):
     client.add_cog(Configuration(client))

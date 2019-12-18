@@ -48,7 +48,6 @@ class Tools(commands.Cog, name="tools"):
         except Exception as error:
             await ctx.channel.purge(limit= 1)
             await ctx.message.channel.send(f"Une erreur est survenue {error}")
-            
 
 def setup(client):
     client.add_cog(Tools(client))
