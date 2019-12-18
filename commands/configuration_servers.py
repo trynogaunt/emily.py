@@ -38,7 +38,7 @@ class Configuration(commands.Cog, name="Configuration"):
             progress_bar = progress_bar + ">"
             await msg.edit(content = progress_bar + f" {int(100*(task_finish /progression))}%")
             task_finish = task_finish + 1
-        await msg.edit(content = progress_bar + f" {int(100*(task_finish /progression))}%")
+        await msg.edit(content = f"Enregistrement: <==========> 100%")
         print("terminé")    
 def setup(client):
     client.add_cog(Configuration(client))
