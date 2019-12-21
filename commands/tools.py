@@ -11,7 +11,7 @@ class Tools(commands.Cog, name="tools"):
         self.embed_img =['https://cdn.discordapp.com/attachments/556807734436167710/587636780694503436/hk416_girls_frontline_drawn_by_nlitz__b548fd4deda227586ab681f3aeef700c.png','https://cdn.discordapp.com/attachments/556807734436167710/583731618280112129/IMG_20190530_205301.jpg','https://cdn.discordapp.com/attachments/556807734436167710/587592676526915594/a2ZrZ7e_700b.png', ' https://cdn.discordapp.com/attachments/556807734436167710/580066744907857925/IMG_20190520_181410.jpg']
         self.not_see_command = self.bot.no_help
         
-    @commands.command(pass_context = True , name = "help", description = "T'envoie mon aide", visibilty = False)
+    @commands.command(pass_context = True , name = "help", description = "T'envoie mon aide")
     async def help(self, ctx, *help_type):
         user_avatar = ctx.message.author.avatar_url
         help_embed = discord.Embed(title = "Voici mon aide", description = "Bonjour je suis Emily", colour = discord.Colour.green())
@@ -27,7 +27,7 @@ class Tools(commands.Cog, name="tools"):
         await ctx.channel.purge(limit= 1)
         await ctx.message.channel.send(embed= help_embed)
 
-    @commands.command(name= "ping", description = "Plus c'est haut plus t'es retardé", visibilty = True)
+    @commands.command(name= "ping", description = "Indique la latence du bot")
     async def ping(self, ctx):
         ping = int(self.client.latency * 100)
         user_avatar = ctx.message.author.avatar_url
@@ -37,7 +37,7 @@ class Tools(commands.Cog, name="tools"):
         await ctx.channel.purge(limit= 1)
         await ctx.message.channel.send(embed = ping_embed)
 
-    @commands.command(name = "clear", description = "Permet supprimer des messages", type = "administration", visibilty = True)
+    @commands.command(name = "clear", description = "Permet supprimer des messages")
     @commands.has_permissions(manage_messages = True)
     async def clear(self, ctx, amount=5):
         try:
