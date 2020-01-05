@@ -27,3 +27,11 @@ def add_roles(bot, p_role_name, p_role_colour, p_role_hoist, p_role_mentionnable
     ping.execute(query, (p_role_name, p_role_colour, p_role_hoist, p_role_mentionnable, p_role_id, p_role_position))
     ping.close()
     database.close()
+
+def add_members(bot, p_member_id, p_member_name, p_member_server):
+    database = mysql.connector.connect(host= bot.database["Host"], user= bot.database["User"], passwd= bot.database["Mdp"], database= bot.database["Name"])
+    ping = database.cursor()
+    query = (f"INSERT INTO members (member_id, member_name, member_server) VALUES (%s, %s, %s)")
+    ping.execute(query, (p_member_id, p_member_name, p_member_server))
+    ping.close()
+    database.close()    

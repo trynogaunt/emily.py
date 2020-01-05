@@ -28,4 +28,4 @@ async def on_member_join(member):
 async def on_member_remove(member):
     print(f'{member} à quitté le serveur')
 
-client.run(bot.bot_token())
+client.run(bot.bot_token()) 
