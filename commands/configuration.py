@@ -1,13 +1,14 @@
 import discord
 import asyncio
 from discord.ext import commands
+import random
+import functions.load_config as c
 import functions.connection as connect
-import functions.load_config as config 
 
-class Configuration(commands.Cog, name="Configuration"):
+class Configuration(commands.Cog, name="configuration"):
     def __init__(self, client):
         self.client = client
-        self.bot = config.BotConfig()
+        self.bot = c.BotConfig()
 
     @commands.command(pass_context = True , name = "save_server", description = "Sauvegarde le serveur")
     async def save_server(self, ctx):
@@ -91,15 +92,6 @@ class Configuration(commands.Cog, name="Configuration"):
             updated_embed.add_field(name = "Membres:", value = f"{progress_bar} {int(100*(member_finish / load_member))}%", inline= False)
             await msg.edit(embed = updated_embed)
             member_finish = member_finish + 1
-
-    @commands.command(pass_context=True, name = "test")
-    async def test(self, ctx):
-        members = ctx.guild.members
-
-        for member in members:
-            print(member.name)
-            for role in member.roles:
-                print(role.name)
 
 def setup(client):
     client.add_cog(Configuration(client))

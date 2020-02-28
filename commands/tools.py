@@ -49,5 +49,17 @@ class Tools(commands.Cog, name="tools"):
             await ctx.channel.purge(limit= 1)
             await ctx.message.channel.send(f"Une erreur est survenue {error}")
 
+    @commands.command(name = "kick", description = "Expulse un membre" )
+    @commands.has_permissions(kick_members = True)
+    async def kick(self, ctx, member : discord.Member, raison):
+            await member.kick(reason=raison)
+            await ctx.message.channel.send(f"{member.name} a été kick")
+
+    @commands.command(name = "ban", description = "Banni un membre" )
+    @commands.has_permissions(ban_members = True)
+    async def kick(self, ctx, member : discord.Member, raison):
+            await member.ban(reason=raison)
+            await ctx.message.channel.send(f"{member.name} a été banni")
+   
 def setup(client):
     client.add_cog(Tools(client))

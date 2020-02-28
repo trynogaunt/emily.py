@@ -6,3 +6,7 @@ functions/__pycache__/load_config.cpython-37.pyc
 commands/__pycache__/configuration_servers.cpython-37.pyc
 commands/__pycache__/tools.cpython-37.pyc
 commands/__pycache__/tools.cpython-37.pyc
+functions/__pycache__/connection.cpython-38.pyc
+functions/__pycache__/load_config.cpython-38.pyc
+commands/__pycache__/tools.cpython-38.pyc
+commands/__pycache__/configuration_servers.cpython-38.pyc

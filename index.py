@@ -2,11 +2,12 @@ import discord
 from discord.ext import commands
 import functions.load_config as c
 
+
 bot = c.BotConfig()
 client = commands.Bot(command_prefix= bot.prefix)
 
 client.remove_command("help") #retire la commande help
-extensions = ['commands.tools', 'commands.configuration_servers'] #listes des extensions à charger
+extensions = ['commands.tools', 'commands.configuration'] #listes des extensions à charger
 if __name__ == "__main__":
     for extension in extensions:
         try:
