@@ -14,10 +14,8 @@ class Battle(commands.Cog, name="battle"):
         await ctx.message.channel.purge(limit = 1)
         await ctx.message.channel.send(f"{ctx.message.author.mention} lance un défi à {opponent.mention}")
         channel = await opponent.create_dm()
-        await channel.send(f"{ctx.message.author.mention} te lance un défi") 
-        construct_board =  battle.create_board()
-        await channel.send(construct_board)
-
+        game = battle.create_game(ctx.message.author, opponent)
+        print(f"Joueur 1: {game.player_one.name}\nPlateau:\n" + game.player_one.print_board() + "\nSa vue:\n" + game.player_one.print_view()+ f"\nJoueur 2: {game.player_two.name}\nPlateau:\n" + game.player_two.print_board() + "\nSa vue:\n " + game.player_two.print_view())
 
 def setup(client):
     client.add_cog(Battle(client))
