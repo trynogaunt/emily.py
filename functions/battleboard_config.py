@@ -10,7 +10,7 @@ class Case():
         self.statut = p_statut
 
 class Game():
-    def __init__(self, p_player_one, p_player_two):
+    def __init__(self, p_player_one, p_player_two, p_player_one_id, p_player_two_id):
         self.player_one = p_player_one
         self.player_two = p_player_two
 

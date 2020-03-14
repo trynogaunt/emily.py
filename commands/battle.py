@@ -9,8 +9,13 @@ class Battle(commands.Cog, name="battle"):
         self.client = client
         self.bot = c.BotConfig()
         self.game_list = []
+    
+    def in_game(self, p_id):
+        for game in game_list:
+            if p_id == game.player_one.id or p_id == game.player_two.id:
+                return game_list.index(game)
 
-    @commands.command(pass_context = True , name = "start_battle", description = "test")
+    @commands.command(pass_context = True , name = "start_battle", description = "Lance une bataille")
     async def start_battle(self, ctx, opponent : discord.Member):
         await ctx.message.channel.purge(limit = 1)
         await ctx.message.channel.send(f"{ctx.message.author.mention} lance un défi à {opponent.mention}")
@@ -23,6 +28,11 @@ class Battle(commands.Cog, name="battle"):
         channel = await opponent.create_dm()
         content = f"Place tes bateaux\n{game.player_two.print_view()}"
         await channel.send(content)
+
+    @commands.command(pass_context = True, name =  "fire", description =  "Tire")
+    async def fire(self, ctx, case_name):
+        if ctx.message.channel.is_private and in_game(ctx.message.author.id):
+            game_index = in_game(ctx.message.author.id)
 
 def setup(client):
     client.add_cog(Battle(client))
