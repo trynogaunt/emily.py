@@ -8,6 +8,7 @@ class Battle(commands.Cog, name="battle"):
     def __init__(self, client):
         self.client = client
         self.bot = c.BotConfig()
+        self.game_list = []
 
     @commands.command(pass_context = True , name = "start_battle", description = "test")
     async def start_battle(self, ctx, opponent : discord.Member):
@@ -15,7 +16,13 @@ class Battle(commands.Cog, name="battle"):
         await ctx.message.channel.send(f"{ctx.message.author.mention} lance un défi à {opponent.mention}")
         channel = await opponent.create_dm()
         game = battle.create_game(ctx.message.author, opponent)
-        print(f"Joueur 1: {game.player_one.name}\nPlateau:\n" + game.player_one.print_board() + "\nSa vue:\n" + game.player_one.print_view()+ f"\nJoueur 2: {game.player_two.name}\nPlateau:\n" + game.player_two.print_board() + "\nSa vue:\n " + game.player_two.print_view())
+        self.game_list.append(game)
+        channel = await ctx.message.author.create_dm()
+        content = f"Place tes bateaux\n{game.player_one.print_view()}"
+        await channel.send(content)
+        channel = await opponent.create_dm()
+        content = f"Place tes bateaux\n{game.player_two.print_view()}"
+        await channel.send(content)
 
 def setup(client):
     client.add_cog(Battle(client))

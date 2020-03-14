@@ -24,39 +24,49 @@ class Player():
         self.view = p_board
     
     def print_board(self):
-        ligne = 1
-        message = ""
-        for pos_case in self.board:
-            if ligne > 11:
-                message = message + "\n"
-                ligne = 1
-            elif pos_case.statut == 0:
-                message = message + "0 | "
-                ligne = ligne + 1
-            elif pos_case.statut == 1:
-                message = message + "X | "
-                ligne = ligne + 1
+        end_line = 0
+        line_letter = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+        line_number = 0
+        statut_print = [0 , "X", "B"]
+        message = f"```\n\ 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9\n{line_letter[line_number]} "
+        line_number += 1
+        for i in self.view:
+            if end_line < 9:
+                message += f"{statut_print[i.statut]} | "
+                end_line = end_line + 1
             else:
-                message = message + "B | "
-                ligne = ligne + 1
+                if line_number == 10:
+                    message += f"{statut_print[i.statut]}"
+                    pass
+                else:
+                    message += f"{statut_print[i.statut]}\n{line_letter[line_number]} "
+                    end_line = 0
+                    line_number += 1
+                
+        message += "```"
         return message
     
     def print_view(self):
-        ligne = 1
-        message = ""
-        for pos_case in self.board:
-            if ligne > 11:
-                message = message + "\n"
-                ligne = 1
-            elif pos_case.statut == 0:
-                message = message + "0 | "
-                ligne = ligne + 1
-            elif pos_case.statut == 1:
-                message = message + "X | "
-                ligne = ligne + 1
+        end_line = 0
+        line_letter = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+        line_number = 0
+        statut_print = [0 , "X", "B"]
+        message = f"```\n\ 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9\n{line_letter[line_number]} "
+        line_number += 1
+        for i in self.view:
+            if end_line < 9:
+                message += f"{statut_print[i.statut]} | "
+                end_line = end_line + 1
             else:
-                message = message + "B | "
-                ligne = ligne + 1
+                if line_number == 10:
+                    message += f"{statut_print[i.statut]}"
+                    pass
+                else:
+                    message += f"{statut_print[i.statut]}\n{line_letter[line_number]} "
+                    end_line = 0
+                    line_number += 1
+                
+        message += "```"
         return message
 
 
@@ -65,7 +75,7 @@ def create_game(p_player_one:discord.User, p_player_two:discord.User):
     cases = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
     list_Case = []
     for pos in cases:
-        for i in range(0,12):
+        for i in range(0,10):
             case = Case(f"{pos}{i}")
             list_Case.append(case)
     player_1 = Player(p_player_one.name, p_player_one.id, list_Case)
