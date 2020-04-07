@@ -11,9 +11,11 @@ class Battle(commands.Cog, name="battle"):
         self.game_list = []
     
     def in_game(self, p_id):
-        for game in game_list:
+        for game in self.game_list:
             if p_id == game.player_one.id or p_id == game.player_two.id:
-                return game
+                return True
+            else:
+                return False
 
 
     @commands.command(pass_context = True , name = "start_battle", description = "Lance une bataille")
@@ -27,6 +29,7 @@ class Battle(commands.Cog, name="battle"):
         player_two_name = opponent.name
         player_two_id = opponent.id
         game = battle.create_game(player_one_name, player_two_name, player_one_id, player_two_id)
+        self.game_list.append(game)
         channel = await ctx.message.author.create_dm()
         content = f"Place tes bateaux\n{game.player_one.print_view()}"
         await channel.send(content)
@@ -34,11 +37,21 @@ class Battle(commands.Cog, name="battle"):
         content = f"Place tes bateaux\n{game.player_two.print_view()}"
         await channel.send(content)
 
+    @commands.command(pass_context = True, name =  "place", description =  "Permet de placer ses bateau")
+    async def place_boats(self, ctx, *boats):
+        if ctx.message.guild == None:
+            if self.in_game(ctx.message.author.id):
+                print("ok")
+            else:
+                print("pas ok")
+
+
     @commands.command(pass_context = True, name =  "fire", description =  "Tire")
     async def fire(self, ctx, case_name):
-        if ctx.message.channel.is_private:
+        if ctx.message.guild == None:
             if in_game(ctx.message.author.id):
-                game = in_game(ctx.message.author.id)
+                #rajouter une fonction de recherche de la game après avoir checké son existence
+                game = in_game(ctx.message.author.id) 
                 channel = await ctx.message.author.create_dm()
                 if ctx.message.author.id == game.player_one.id:
                     target_statut = game.player_two.board.index(case_name).get_statut
@@ -54,6 +67,8 @@ class Battle(commands.Cog, name="battle"):
                         game.player_two.board.index(case_name).change_statut(2)
                         game.player_one.view.index(case_name).change_statut(2)
                         await channel.send("Plouf")
+
+
 
                     
 def setup(client):
