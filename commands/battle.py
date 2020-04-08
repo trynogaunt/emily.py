@@ -16,6 +16,11 @@ class Battle(commands.Cog, name="battle"):
                 return True
             else:
                 return False
+    
+    def search_game(self, p_id):
+        for game in self.game_list:
+            if p_id == game.player_one.id or p_id == game.player_two.id:
+                return game
 
 
     @commands.command(pass_context = True , name = "start_battle", description = "Lance une bataille")
@@ -39,9 +44,20 @@ class Battle(commands.Cog, name="battle"):
 
     @commands.command(pass_context = True, name =  "place", description =  "Permet de placer ses bateau")
     async def place_boats(self, ctx, *boats):
+        unidentified_case = []
         if ctx.message.guild == None:
             if self.in_game(ctx.message.author.id):
-                print("ok")
+                game = self.search_game(ctx.message.author.id)
+                if game.player_one.id == ctx.message.author.id:
+                    player = game.player_one
+                else:
+                    player = game.player_two
+                for boat in boats:
+                    if player.search_case_board(boat) == -1:
+                        unidentified_case.append(boat)
+                    else:
+                        player.board[player.search_case_board(boat)].change_statut(1)
+                for case in player.board:
             else:
                 print("pas ok")
 
