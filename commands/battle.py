@@ -36,10 +36,10 @@ class Battle(commands.Cog, name="battle"):
         game = battle.create_game(player_one_name, player_two_name, player_one_id, player_two_id)
         self.game_list.append(game)
         channel = await ctx.message.author.create_dm()
-        content = f"Place tes bateaux\n{game.player_one.print_view()}"
+        content = f"Place tes bateaux\n{game.player_one.view_repr()}"
         await channel.send(content)
         channel = await opponent.create_dm()
-        content = f"Place tes bateaux\n{game.player_two.print_view()}"
+        content = f"Place tes bateaux\n{game.player_two.view_repr()}"
         await channel.send(content)
 
     @commands.command(pass_context = True, name =  "place", description =  "Permet de placer ses bateau")
@@ -47,19 +47,24 @@ class Battle(commands.Cog, name="battle"):
         unidentified_case = []
         if ctx.message.guild == None:
             if self.in_game(ctx.message.author.id):
-                game = self.search_game(ctx.message.author.id)
-                if game.player_one.id == ctx.message.author.id:
-                    player = game.player_one
-                else:
-                    player = game.player_two
-                for boat in boats:
-                    if player.search_case_board(boat) == -1:
-                        unidentified_case.append(boat)
+                if len(boats) == 10:
+                    game = self.search_game(ctx.message.author.id)
+                    if game.player_one.id == ctx.message.author.id:
+                        player = game.player_one
                     else:
-                        player.board[player.search_case_board(boat)].change_statut(1)
-                for case in player.board:
+                        player = game.player_two
+                    for boat in boats:
+                        if player.search_case_board(boat) == -1:
+                            unidentified_case.append(boat)
+                        else:
+                            player.board[player.search_case_board(boat)].change_statut(1)
+                    await ctx.message.channel.send(f"{player.board_repr()}\nCases non prises en compte {unidentified_case}")
+                else:
+                    await ctx.message.channel.send("Veuilez ajouter 10 cases de placements")
             else:
                 print("pas ok")
+        else:
+            print("pas ok")
 
 
     @commands.command(pass_context = True, name =  "fire", description =  "Tire")

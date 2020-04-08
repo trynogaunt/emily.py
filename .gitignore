@@ -1,7 +1,8 @@
 config.json
 .vscode
-
 functions/__pycache__/*
 commands/__pycache__/*
 
 
+commands/__pycache__/battle.cpython-38.pyc
+functions/__pycache__/battleboard_config.cpython-38.pyc
